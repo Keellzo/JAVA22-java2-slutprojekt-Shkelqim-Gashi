@@ -1,4 +1,4 @@
-# Slutprojekt i Avancerad Java
+# Slutprojekt i Avancerad Java - Produktions regulator
 
 ## Projektbeskrivning
 Det här systemet är en simulering som effektivt hanterar flödet av enheter med hjälp av Java-trådar. Med en buffert, som är hjärtat i systemet, ser den till att producent-trådarna (Producer) kan leverera sina enheter smidigt, och att konsument-trådarna (Consumer) kan bearbeta dem utan dröjsmål. En `ProductionBufferMonitor` håller koll på buffertens storlek och räknar ut ett snitt för att visa användaren och lägga till i loggen. `Controller`-klassen leder producenter och konsumenter i systemet, medan `LogController` ser till att varje händelse blir dokumenterad - ett väldigt bra verktyg för att säkerställa systemets drift.
