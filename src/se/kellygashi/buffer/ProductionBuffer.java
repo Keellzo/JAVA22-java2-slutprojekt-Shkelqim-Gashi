@@ -1,29 +1,27 @@
-package se.kellygashi.model;
+package se.kellygashi.buffer;
 
 import java.util.LinkedList;
+
 import java.util.Queue;
 
 public class ProductionBuffer {
     private final Queue<Integer> queue = new LinkedList<>();
-    private long totalUnits = 0;
-    private long unitCount = 0;
 
-    public synchronized void addItem(int item) {
-        queue.add(item);
-        totalUnits += item;
-        unitCount++;
+    /**
+     * Adds a unit to the queue and then notifying all threads that is waiting
+     * Notification is important to wake up threads to consume units
+     * @param units the unit to be added
+     */
+    public synchronized void addUnit(int units) {
+        queue.add(units);
         notifyAll();
     }
 
-    public long getTotalUnits() {
-        return totalUnits;
-    }
-
-    public long getUnitCount() {
-        return unitCount;
-    }
-
-    public synchronized int removeItem() {
+    /**
+     * Removes units from the queue, if the queue is empty it waits
+     * Then we notify all waiting threads
+     */
+    public synchronized void removeUnit() {
         while (queue.isEmpty()) {
             try {
                 wait();
@@ -31,23 +29,15 @@ public class ProductionBuffer {
                 throw new RuntimeException(e);
             }
         }
-        int removedItem = queue.remove();
-        totalUnits -= removedItem;
-        unitCount--;
+        queue.remove();
         notifyAll();
-        return removedItem;
     }
 
-
+    /**
+     * Returning the size of the queue that is synchronized, so we always get the correct current data
+     * @return returning the current size of the queue
+     */
     public synchronized int size() {
         return queue.size();
-    }
-
-    public synchronized double getAverage() {
-        if (unitCount == 0) {
-            return 0.0;
-        }
-        System.out.println((double) totalUnits / unitCount);
-        return (double) totalUnits / unitCount;
     }
 }
