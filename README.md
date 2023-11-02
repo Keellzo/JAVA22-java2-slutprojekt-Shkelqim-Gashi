@@ -1,7 +1,7 @@
 # Slutprojekt i Avancerad Java
 
 ## Projektbeskrivning
-Det här systemet är en simulering som effektivt hanterar flödet av enheter med hjälp av Java-trådar. Med en buffert, som är hjärtat i systemet, ser vi till att producent-trådarna (Producer) kan leverera sina enheter smidigt, och att konsument-trådarna (Consumer) kan bearbeta dem utan dröjsmål. En `ProductionBufferMonitor` håller koll på buffertens storlek och räknar ut ett snitt för att säkerställa balansen över tid. `Controller`-klassen leder producenter och konsumenter i systemet, medan `LogController` ser till att varje händelse blir dokumenterad - ett väldigt bra verktyg för att säkerställa systemets drift.
+Det här systemet är en simulering som effektivt hanterar flödet av enheter med hjälp av Java-trådar. Med en buffert, som är hjärtat i systemet, ser vi till att producent-trådarna (Producer) kan leverera sina enheter smidigt, och att konsument-trådarna (Consumer) kan bearbeta dem utan dröjsmål. En `ProductionBufferMonitor` håller koll på buffertens storlek och räknar ut ett snitt för att visa användaren och lägga till i loggen. `Controller`-klassen leder producenter och konsumenter i systemet, medan `LogController` ser till att varje händelse blir dokumenterad - ett väldigt bra verktyg för att säkerställa systemets drift.
 
 ## Lösning
 Min lösning är helt okej tycker jag - synkronisering mellan trådarna sköts bra, vilket gör att tillgången till den gemensamma resursen, bufferten, sker utan kollisioner. `ProductionBuffer` använder sig av `synchronized`-metoder för att se till att bara en tråd åt gången får lov att manipulera innehållet. `EventLog`-klassen, en praktfull singleton, ser till att varje event som bör noteras fångas och lagras till filen. 
